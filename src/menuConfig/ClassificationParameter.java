@@ -68,7 +68,9 @@ public class ClassificationParameter {
 
     public static void setMinimumSpentTime(String parameter) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println();
         System.out.print("Input Minimum Spent Time : ");
+        System.out.println();
         int time=Integer.parseInt(br.readLine());
         switch (parameter){
             case "GENERAL":
@@ -84,7 +86,9 @@ public class ClassificationParameter {
     }
     public static void setMinimumTotalPay(String parameter) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println();
         System.out.print("Input Minimum Total Pay : ");
+        System.out.println();
         int money=Integer.parseInt(br.readLine());
         switch (parameter){
             case "GENERAL":

@@ -54,10 +54,11 @@ public class MenuConfig {
 
         System.out.println();
         System.out.println("==============================");
-        System.out.println(" 1. Classification Parameter");
-        System.out.println(" 2. Customer Data");
-        System.out.println(" 3. Summary");
-        System.out.println(" 4. Quit");
+        System.out.println(" 1. Add Customer Data");
+        System.out.println(" 2. View Customer Data");
+        System.out.println(" 3. Update Customer Data");
+        System.out.println(" 4. Delete Customer Data");
+        System.out.println(" 5. Back");
         System.out.println("==============================");
         System.out.print("Choose One: ");
         switch (Integer.parseInt(br.readLine())){
@@ -65,7 +66,7 @@ public class MenuConfig {
             case 2: br.close(); break;
             case 3: br.close(); break;
             case 4: br.close(); break;
-            case 5: MenuConfig.topMenu(); br.close(); break;
+            case 5: topMenu(); br.close(); break;
         }
     }
 
