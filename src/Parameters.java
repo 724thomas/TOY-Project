@@ -2,6 +2,11 @@ package src;
 
 public class Parameters {
 
+    //General -> Vip -> VVIP
+    private static int[] generalParameter = new int[]{0,0};
+    private static int[] vipParameter = new int[]{0,0};
+    private static int[] vvipParameter = new int[]{0,0};
+
     private static int generalMinimumSpentTime=-1;
     private static int generalMinimumTotalPay=-1;
 
@@ -12,8 +17,25 @@ public class Parameters {
     private static int vvipMinimumTotalPay=-1;
 
 
+    public static int getGeneralParameter(int parameter){
+        return generalParameter[parameter-1];
+    }
+    public static void setGeneralParameter(int parameter, int value){
+        generalParameter[parameter-1]=value;
+    }
 
-
+    public static int getVipParameter(int parameter){
+        return vipParameter[parameter-1];
+    }
+    public static void setVipParameter(int parameter, int value){
+        vipParameter[parameter-1]=value;
+    }
+    public static int getVvipParameter(int parameter){
+        return vvipParameter[parameter-1];
+    }
+    public static void setVvipParameter(int parameter, int value){
+        vvipParameter[parameter-1]=value;
+    }
 
 
     public static int getGeneralMinimumSpentTime() {

@@ -10,14 +10,67 @@ public class ClassificationParameter {
 
 
 
-    public static void setParameter() throws IOException{
-        String choice=chooseParameterMenu();
-        if (choice.equals("END")){
+    public static void setParameterMenu() throws IOException{
+        String group=chooseGroupMenu();
+        if (group.equals("END")){
             MenuConfig.cpMenu();
         }else{
-            showParameter(choice);
+            setWhichParameter(group);
+
         }
     }
+
+    public static String chooseGroupMenu() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println();
+        System.out.println("Which group? Type ( General  ,  VIP  ,  VVIP ) ");
+        System.out.println("** Type 'end', if you want to exit! **");
+        System.out.println();
+
+        if (br.readLine().toUpperCase()=="END") {
+            setParameterMenu();
+        }
+        return br.readLine().toUpperCase();
+    }
+
+    public static void setGroupParameter(String group){
+
+    }
+
+    public static void setWhichParameter(String group) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println();
+        System.out.println("==============================");
+        System.out.println(" 1. Minimum Spent Time");
+        System.out.println(" 2. Minimum Total Pay");
+        System.out.println(" 3. Back");
+        System.out.println("==============================");
+        System.out.print("Choose One : ");
+        int parameter =Integer.parseInt(br.readLine());
+        switch(parameter){
+            case 1:
+                System.out.println("Input Minimum Spent Time : ");
+            case 2:
+                System.out.println("Input Minimum Total Pay : ");
+            case 3:
+                chooseGroupMenu();
+        }
+
+        switch(group){
+            case "GENERAL" :
+                Parameters.setGeneralParameter(parameter,Integer.parseInt(br.readLine()));
+            case "VIP":
+                Parameters.setVipParameter(parameter,Integer.parseInt(br.readLine()));
+            case "VVIP":
+                Parameters.setVvipParameter(parameter,Integer.parseInt(br.readLine()));
+        }
+    }
+
+    public static void showGroupParameter(String group){
+
+    }
+
 
     public static void viewParameter() throws IOException{
         String choice=chooseParameterMenu();
@@ -102,9 +155,6 @@ public class ClassificationParameter {
         }
         whichParameter(parameter);
     }
-
-
-
 
 
     public static String chooseParameterMenu() throws IOException{

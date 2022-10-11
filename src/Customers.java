@@ -10,29 +10,30 @@ public class Customers {
 
     private static Customer[] customerList = new Customer[0]; //Arrays of Customer
 
-    public static void showCustomersID(){
-        for (int i = 0; i< customerList.length; i++){
+    public static void showCustomersID() {
+        for (int i = 0; i < customerList.length; i++) {
             System.out.println(customerList[i].getUserID());
         }
     }
 
 
     public static void addCustomerDataMenu() throws IOException {
-        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("How many customers to input? ");
         int newCustomers = Integer.parseInt(br.readLine());
 
-        for (int i=0; i<newCustomers; i++){
+        for (int i = 0; i < newCustomers; i++) {
             addACustomer(newCustomerData(i));
         }
         MenuConfig.cdMenu();
     }
+
     public static Customer newCustomerData(int num) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Customer customer= new Customer();
+        Customer customer = new Customer();
         System.out.println();
-        System.out.println("====== Customer " + (num+1) + " Info. ======");
+        System.out.println("====== Customer " + (num + 1) + " Info. ======");
         System.out.println();
 
         switch (customerInfoSelectMenu()) {
@@ -61,6 +62,7 @@ public class Customers {
         }
         return customer;
     }
+
     public static int customerInfoSelectMenu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println();
@@ -72,11 +74,12 @@ public class Customers {
         System.out.println(" 5. Back");
         System.out.println("==============================");
         System.out.print("Choose One: ");
-        int choice= Integer.parseInt(br.readLine());
+        int choice = Integer.parseInt(br.readLine());
         return choice;
     }
+
     public static void addACustomer(Customer custom1) {
-        Customer[] copied = new Customer[customerList.length+1];
+        Customer[] copied = new Customer[customerList.length + 1];
 
         System.arraycopy(customerList, 0, copied, 0, customerList.length);
 
@@ -88,29 +91,24 @@ public class Customers {
 //                    customerList[j].getSpentTime(),
 //                    customerList[j].getTotalPay());
 //        }
-        copied[customerList.length]= custom1;
+        copied[customerList.length] = custom1;
         customerList = copied;
     }
 
 
-
-    public static void viewCustomerData() throws IOException {
+    public static void viewCustomerData() {
         System.out.println();
         System.out.println("======= Customer Info. =======");
 
-        for (int i=0; i<customerList.length; i++){
-            System.out.println("No. " + (i+1) + " => Customer{"
-                    +"serialNO=" + customerList[i].getSerialNo()
-                    +", name=" + customerList[i].getName()
-                    +", userID=" + customerList[i].getUserID()
-                    +", spentTime=" + customerList[i].getSpentTime()
-                    +", totalPay=" + customerList[i].getTotalPay());
+        for (int i = 0; i < customerList.length; i++) {
+            System.out.println("No. " + (i + 1) + " => Customer{"
+                    + "serialNO=" + customerList[i].getSerialNo()
+                    + ", name=" + customerList[i].getName()
+                    + ", userID=" + customerList[i].getUserID()
+                    + ", spentTime=" + customerList[i].getSpentTime()
+                    + ", totalPay=" + customerList[i].getTotalPay());
         }
     }
-
-
-
-
 
 
     public static void updateCustomerDataMenu() throws IOException {
@@ -122,88 +120,49 @@ public class Customers {
         System.out.print("Which customer ( 1 ~ " + customerList.length + " )?");
         int index = Integer.parseInt(br.readLine());
         System.out.println();
-        switch(customerInfoSelectMenu()){
+        switch (customerInfoSelectMenu()) {
             case 1:
                 System.out.print("Input Customer's Name: ");
                 customerList[index].setName(br.readLine());
+                customerInfoSelectMenu();
             case 2:
                 System.out.print("Input Customer's UserID: ");
                 customerList[index].setUserID(br.readLine());
+                customerInfoSelectMenu();
             case 3:
                 System.out.print("Input Customer's Spent Time at Your Store: ");
                 customerList[index].setSpentTime(Integer.parseInt(br.readLine()));
+                customerInfoSelectMenu();
             case 4:
                 System.out.print("Input Customer's Total Payment at Your Store: ");
                 customerList[index].setTotalPay(Integer.parseInt(br.readLine()));
+                customerInfoSelectMenu();
             case 5:
                 MenuConfig.cdMenu();
         }
     }
 
-
-    public void changeCustomerInfo(int place) throws IOException {
+    public static void deleteCustomersDataMenu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+        viewCustomerData();
         System.out.println();
-        //CustomerInfo Println
-        System.out.println("Which Customer? " + customerList.length);
-        customerList[place].setTotalPay(1);
-
+        System.out.print("Which customer ( 1 ~ " + customerList.length + " )?");
+        int index = Integer.parseInt(br.readLine());
+        deleteCustomerData(index);
+        viewCustomerData();
+        MenuConfig.cdMenu();
     }
 
-    public static Customer[] deleteCustomers(Customer[] original, int place) throws CloneNotSupportedException {
-        if (original.length==0){
-            System.out.println();
-            System.out.println("There is no existing customer data that can be deleted.");
-            System.out.println("Please add customers.");
-            System.out.println();
-            return null;
-        }else {
-            Customer[] copied = new Customer[original.length-1];
-
-            for (int i=0; i<place-1; i++){
-                copied[i].setSerialNo(original[i].getSerialNo());
-                copied[i].setName(original[i].getName());
-                copied[i].setUserID(original[i].getUserID());
-                copied[i].setSpentTime(original[i].getSpentTime());
-                copied[i].setTotalPay(original[i].getTotalPay());
-            }
-
-            for (int i=place; i< original.length; i++){
-                copied[i-1].setSerialNo(original[i].getSerialNo());
-                copied[i-1].setName(original[i].getName());
-                copied[i-1].setUserID(original[i].getUserID());
-                copied[i-1].setSpentTime(original[i].getSpentTime());
-                copied[i-1].setTotalPay(original[i].getTotalPay());
-            }
-            System.out.println("Customer Data Deleted Successfully ! ");
-            return copied;
+    public static void deleteCustomerData(int index) {
+        Customer[] copied = new Customer[customerList.length - 1];
+        System.arraycopy(customerList, 0, copied, 0, --index);
+        if (customerList.length != index) {
+            System.arraycopy(customerList, index + 1, copied, index, customerList.length - index - 1);
         }
+        customerList = copied;
+        System.out.println();
+        System.out.println("Customer Data Deleted Successfully !");
     }
 }
-
-
-
-//    public static void customerInfoMenu() throws IOException {
-//        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-//
-//
-//        System.out.println();
-//        System.out.println("==============================");
-//        System.out.println(" 1. Customer Name");
-//        System.out.println(" 2. Customer ID");
-//        System.out.println(" 3. Customer Spend Time");
-//        System.out.println(" 4. Customer Total Pay");
-//        System.out.println("==============================");
-//        System.out.print("Choose One: ");
-//        int choice= Integer.parseInt(br.readLine());
-//        switch (choice){
-//            case 1:
-//                addACustomer();
-//
-//        }
-//    }
-
-
 
 

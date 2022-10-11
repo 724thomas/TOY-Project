@@ -43,7 +43,7 @@ public class MenuConfig {
         System.out.print("Choose One: ");
         int choice =Integer.parseInt(br.readLine());
         switch (choice) {
-            case 1: ClassificationParameter.setParameter(); br.close(); break;
+            case 1: ClassificationParameter.setParameterMenu(); br.close(); break;
             case 2: ClassificationParameter.viewParameter(); br.close(); break;
             case 3: ClassificationParameter.updateParameter(); br.close(); break;
             case 4: topMenu();break;
@@ -64,8 +64,8 @@ public class MenuConfig {
         switch (Integer.parseInt(br.readLine())){
             case 1: Customers.addCustomerDataMenu(); br.close(); break;
             case 2: Customers.viewCustomerData(); cdMenu(); br.close(); break;
-            case 3: br.close(); break;
-            case 4: br.close(); break;
+            case 3: Customers.updateCustomerDataMenu(); br.close(); break;
+            case 4: Customers.deleteCustomersDataMenu(); br.close(); break;
             case 5: topMenu(); br.close(); break;
         }
     }
