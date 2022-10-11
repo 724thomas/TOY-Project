@@ -1,5 +1,7 @@
 package src.menuConfig;
 
+import src.Customers;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,7 +30,6 @@ public class MenuConfig {
             case 4: quit();break;
         }
     }
-
     public static void cpMenu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -48,7 +49,6 @@ public class MenuConfig {
             case 4: topMenu();break;
         }
     }
-
     public static void cdMenu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -62,8 +62,8 @@ public class MenuConfig {
         System.out.println("==============================");
         System.out.print("Choose One: ");
         switch (Integer.parseInt(br.readLine())){
-            case 1: br.close(); break;
-            case 2: br.close(); break;
+            case 1: Customers.addCustomerDataMenu(); br.close(); break;
+            case 2: Customers.viewCustomerData(); cdMenu(); br.close(); break;
             case 3: br.close(); break;
             case 4: br.close(); break;
             case 5: topMenu(); br.close(); break;
@@ -83,7 +83,7 @@ public class MenuConfig {
         System.out.println("==============================");
         System.out.print("Choose One: ");
         switch (Integer.parseInt(br.readLine())){
-            case 1: br.close(); break;
+            case 1:br.close(); break;
             case 2: br.close(); break;
             case 3: br.close(); break;
             case 4: br.close(); break;

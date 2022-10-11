@@ -11,7 +11,9 @@ public class Customer {
     private int totalPay;
 
 
-    public Customer(){}
+    public Customer(){
+        this.serialNo=++count;
+    }
 
     public Customer(String name, String userID, int spentTime, int totalPay) {
         this.serialNo=++count;

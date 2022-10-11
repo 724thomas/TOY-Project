@@ -1,20 +1,66 @@
 package src;
 
+import src.menuConfig.MenuConfig;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
 
 public class Customers {
 
-    private Customer[] customers;
-    private static int custCount=0;
+    private static Customer[] customerList = new Customer[0]; //Arrays of Customer
 
-    public Customers(Customer[] customers) {
-        this.customers = customers;
+    public static void showCustomersID(){
+        for (int i = 0; i< customerList.length; i++){
+            System.out.println(customerList[i].getUserID());
+        }
     }
 
 
+    public static void addCustomerDataMenu() throws IOException {
+        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.print("How many customers to input? ");
+        int newCustomers = Integer.parseInt(br.readLine());
+
+        for (int i=0; i<newCustomers; i++){
+            addACustomer(newCustomerData(i));
+        }
+        MenuConfig.cdMenu();
+    }
+    public static Customer newCustomerData(int num) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Customer customer= new Customer();
+        System.out.println();
+        System.out.println("====== Customer " + (num+1) + " Info. ======");
+        System.out.println();
+
+        switch (customerInfoSelectMenu()) {
+            case 1:
+                System.out.print("Input Customer's Name : ");
+                customer.setName(br.readLine());
+                newCustomerData(num);
+                break;
+            case 2:
+                System.out.print("Input Customer's ID : ");
+                customer.setUserID(br.readLine());
+                newCustomerData(num);
+                break;
+            case 3:
+                System.out.print("Input Customer's Spent Time at Your Store:");
+                customer.setSpentTime(Integer.parseInt(br.readLine()));
+                newCustomerData(num);
+                break;
+            case 4:
+                System.out.print("Input Customer's Total Payment at Your Store:");
+                customer.setTotalPay(Integer.parseInt(br.readLine()));
+                newCustomerData(num);
+                break;
+            case 5:
+                break;
+        }
+        return customer;
+    }
     public static int customerInfoSelectMenu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println();
@@ -23,68 +69,85 @@ public class Customers {
         System.out.println(" 2. Customer ID");
         System.out.println(" 3. Customer Spend Time");
         System.out.println(" 4. Customer Total Pay");
+        System.out.println(" 5. Back");
         System.out.println("==============================");
         System.out.print("Choose One: ");
         int choice= Integer.parseInt(br.readLine());
         return choice;
     }
+    public static void addACustomer(Customer custom1) {
+        Customer[] copied = new Customer[customerList.length+1];
 
-    public Customer[] addACustomerData() throws IOException {
+        System.arraycopy(customerList, 0, copied, 0, customerList.length);
+
+
+//        for (int j = 0; j< customerList.length; j++){
+//            copied[j]= new Customer(
+//                    customerList[j].getName(),
+//                    customerList[j].getUserID(),
+//                    customerList[j].getSpentTime(),
+//                    customerList[j].getTotalPay());
+//        }
+        copied[customerList.length]= custom1;
+        customerList = copied;
+    }
+
+
+
+    public static void viewCustomerData() throws IOException {
+        System.out.println();
+        System.out.println("======= Customer Info. =======");
+
+        for (int i=0; i<customerList.length; i++){
+            System.out.println("No. " + (i+1) + " => Customer{"
+                    +"serialNO=" + customerList[i].getSerialNo()
+                    +", name=" + customerList[i].getName()
+                    +", userID=" + customerList[i].getUserID()
+                    +", spentTime=" + customerList[i].getSpentTime()
+                    +", totalPay=" + customerList[i].getTotalPay());
+        }
+    }
+
+
+
+
+
+
+    public static void updateCustomerDataMenu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        Customer customer= new Customer();
-        switch (customerInfoSelectMenu()) {
+        viewCustomerData();
+
+        System.out.println();
+        System.out.print("Which customer ( 1 ~ " + customerList.length + " )?");
+        int index = Integer.parseInt(br.readLine());
+        System.out.println();
+        switch(customerInfoSelectMenu()){
             case 1:
-                System.out.print("Input Customer's Name : ");
-                customer.setName(br.readLine());
-                addACustomerData();
-                break;
+                System.out.print("Input Customer's Name: ");
+                customerList[index].setName(br.readLine());
             case 2:
-                System.out.print("Input Customer's ID : ");
-                customer.setUserID(br.readLine());
-                addACustomerData();
-                break;
+                System.out.print("Input Customer's UserID: ");
+                customerList[index].setUserID(br.readLine());
             case 3:
-                System.out.print("Input Customer's Spent Time at Your Store:");
-                customer.setSpentTime(Integer.parseInt(br.readLine()));
-                addACustomerData();
-                break;
+                System.out.print("Input Customer's Spent Time at Your Store: ");
+                customerList[index].setSpentTime(Integer.parseInt(br.readLine()));
             case 4:
-                System.out.print("Input Customer's Total Payment at Your Store:");
-                customer.setTotalPay(Integer.parseInt(br.readLine()));
-                addACustomerData();
-                break;
+                System.out.print("Input Customer's Total Payment at Your Store: ");
+                customerList[index].setTotalPay(Integer.parseInt(br.readLine()));
             case 5:
-                break;
+                MenuConfig.cdMenu();
         }
-        return addACustomer(customers,customer);
     }
 
-
-
-    public static Customer[] addACustomer(Customer[] original, Customer customer) throws IOException {
-        Customer[] copied = new Customer[original.length+1];
-
-        for (int i=0; i< original.length; i++){
-            copied[i].setSerialNo(original[i].getSerialNo());
-            copied[i].setName(original[i].getName());
-            copied[i].setUserID(original[i].getUserID());
-            copied[i].setSpentTime(original[i].getSpentTime());
-            copied[i].setTotalPay(original[i].getTotalPay());
-        }
-
-        copied[original.length+1]= customer;
-
-        return copied;
-    }
 
     public void changeCustomerInfo(int place) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println();
         //CustomerInfo Println
-        System.out.println("Which Customer? " + this.customers.length);
-        customers[place].setTotalPay(1);
+        System.out.println("Which Customer? " + customerList.length);
+        customerList[place].setTotalPay(1);
 
     }
 
@@ -96,7 +159,6 @@ public class Customers {
             System.out.println();
             return null;
         }else {
-            custCount--;
             Customer[] copied = new Customer[original.length-1];
 
             for (int i=0; i<place-1; i++){
@@ -118,6 +180,7 @@ public class Customers {
             return copied;
         }
     }
+}
 
 
 
@@ -140,7 +203,7 @@ public class Customers {
 //
 //        }
 //    }
-}
+
 
 
 
