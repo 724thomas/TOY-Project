@@ -1,14 +1,14 @@
-package src;
+package src2;
 
-import src.menuConfig.MenuConfig;
+import src2.menuConfig.MenuConfig2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Customers {
+public class Customers2 {
 
-    private static Customer[] customerList = new Customer[0]; //Arrays of Customer
+    private static Customer2[] customerList = new Customer2[0]; //Arrays of Customer
 
     public static void showCustomersID() {
         for (int i = 0; i < customerList.length; i++) {
@@ -26,12 +26,12 @@ public class Customers {
         for (int i = 0; i < newCustomers; i++) {
             addACustomer(newCustomerData(i));
         }
-        MenuConfig.cdMenu();
+        MenuConfig2.cdMenu();
     }
 
-    public static Customer newCustomerData(int num) throws IOException {
+    public static Customer2 newCustomerData(int num) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Customer customer = new Customer();
+        Customer2 customer = new Customer2();
         System.out.println();
         System.out.println("====== Customer " + (num + 1) + " Info. ======");
         System.out.println();
@@ -79,8 +79,8 @@ public class Customers {
         return choice;
     }
 
-    public static void addACustomer(Customer custom1) {
-        Customer[] copied = new Customer[customerList.length + 1];
+    public static void addACustomer(Customer2 custom1) {
+        Customer2[] copied = new Customer2[customerList.length + 1];
 
         System.arraycopy(customerList, 0, copied, 0, customerList.length);
 
@@ -135,7 +135,7 @@ public class Customers {
                 customerInfoSelectMenu();
                 break;
             case 5:
-                MenuConfig.cdMenu();
+                MenuConfig2.cdMenu();
                 break;
         }
     }
@@ -148,11 +148,11 @@ public class Customers {
         int index = Integer.parseInt(br.readLine());
         deleteCustomerData(index);
         viewCustomerData();
-        MenuConfig.cdMenu();
+        MenuConfig2.cdMenu();
     }
 
     public static void deleteCustomerData(int index) {
-        Customer[] copied = new Customer[customerList.length - 1];
+        Customer2[] copied = new Customer2[customerList.length - 1];
         System.arraycopy(customerList, 0, copied, 0, --index);
         if (customerList.length != index) {
             System.arraycopy(customerList, index + 1, copied, index, customerList.length - index - 1);

@@ -8,191 +8,84 @@ import java.io.InputStreamReader;
 
 public class ClassificationParameter {
 
+    public static void classificationParameterMenu() throws IOException {
+        System.out.println("1SET, 2VIEW, 3UPDATE, 4BACK");
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int act=Integer.parseInt(br.readLine());
+        if (act==4){MenuConfig.topMenu();}
 
-
-    public static void setParameterMenu() throws IOException{
-        String group=chooseGroupMenu();
-        if (group.equals("END")){
-            MenuConfig.cpMenu();
-        }else{
-            setWhichParameter(group);
-
+        switch(act){
+            case 1:chooseGroupMenu("SET");break;
+            case 2:chooseGroupMenu("VIEW");break;
+            case 3:chooseGroupMenu("UPDATE");break;
         }
     }
 
-    public static String chooseGroupMenu() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void chooseGroupMenu(String act) throws IOException {
+        System.out.println("GENERAL, VIP, VVIP, END");
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        String group=br.readLine().toUpperCase();
+        if (group.equals("END")){classificationParameterMenu();}
 
-        System.out.println();
-        System.out.println("Which group? Type ( General  ,  VIP  ,  VVIP ) ");
-        System.out.println("** Type 'end', if you want to exit! **");
-        System.out.println();
-
-        if (br.readLine().toUpperCase()=="END") {
-            setParameterMenu();
-        }
-        return br.readLine().toUpperCase();
-    }
-
-    public static void setGroupParameter(String group){
-
-    }
-
-    public static void setWhichParameter(String group) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println();
-        System.out.println("==============================");
-        System.out.println(" 1. Minimum Spent Time");
-        System.out.println(" 2. Minimum Total Pay");
-        System.out.println(" 3. Back");
-        System.out.println("==============================");
-        System.out.print("Choose One : ");
-        int parameter =Integer.parseInt(br.readLine());
-        switch(parameter){
-            case 1:
-                System.out.println("Input Minimum Spent Time : ");
-            case 2:
-                System.out.println("Input Minimum Total Pay : ");
-            case 3:
-                chooseGroupMenu();
-        }
-
-        switch(group){
-            case "GENERAL" :
-                Parameters.setGeneralParameter(parameter,Integer.parseInt(br.readLine()));
-            case "VIP":
-                Parameters.setVipParameter(parameter,Integer.parseInt(br.readLine()));
-            case "VVIP":
-                Parameters.setVvipParameter(parameter,Integer.parseInt(br.readLine()));
+        switch (act){
+            case "SET":
+                chooseParameterMenu(act,group); break;
+            case "VIEW":
+                showCurrentParameter(group);
+                classificationParameterMenu();
+                break;
+            case "UPDATE":
+                chooseParameterMenu(act,group); break;
         }
     }
 
-    public static void showGroupParameter(String group){
+    public static void chooseParameterMenu(String act, String group) throws IOException{
+        System.out.println("Spent Time, Total Pay, Back");
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int parameter=Integer.parseInt(br.readLine());
+        if (parameter==3){chooseGroupMenu(act);}
 
-    }
+        switch (act){
+            case "SET":
+                switch(parameter) {
+                    case 1:System.out.print("Input Minimum Spent Time: ");break;
+                    case 2:System.out.print("Input Minimum Total Pay: ");break;
+                }
 
-
-    public static void viewParameter() throws IOException{
-        String choice=chooseParameterMenu();
-        if (choice.equals("END")){
-            MenuConfig.cpMenu();
-        }else{
-            showParameter(choice);
-            viewParameter();
-        }
-    }
-
-    public static void updateParameter() throws IOException{
-        String choice=chooseParameterMenu();
-        if (choice.equals("END")){
-            MenuConfig.cpMenu();
-        }else{
-            whichParameter(choice);
-        }
-    }
-
-    public static void whichParameter(String parameter) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.println("==============================");
-        System.out.println(" 1. Minimum Spent Time");
-        System.out.println(" 2. Minimum Total Pay");
-        System.out.println(" 3. Back");
-        System.out.println("==============================");
-        System.out.print("Choose One: ");
-        int choice = Integer.parseInt(br.readLine());
-        switch (choice) {
-            case 1:
-                setMinimumSpentTime(parameter);
-                updateParameter();
+                if (Parameters.getParameter(group,parameter)==-1){
+                    Parameters.setParameter(group,parameter,Integer.parseInt(br.readLine()));
+                }else{
+                    System.out.println(group + " group already exists.");
+                    System.out.println();
+                    showCurrentParameter(group);
+                }
+                chooseParameterMenu(act,group);
                 break;
-            case 2:
-                setMinimumTotalPay(parameter);
-                updateParameter();
-                break;
-            case 3:
-                chooseParameterMenu();
+            case "UPDATE":
+                switch(parameter) {
+                    case 1:System.out.print("Input Minimum Spent Time: ");break;
+                    case 2:System.out.print("Input Minimum Total Pay: ");break;
+                }
+
+                if (Parameters.getParameter(group,parameter)!=-1){
+                    Parameters.setParameter(group,parameter,Integer.parseInt(br.readLine()));
+                    chooseParameterMenu(act,group);
+                }else{
+                    System.out.println("No parameter. Set the parameter first.");
+                    chooseGroupMenu(act);
+                }
                 break;
         }
+
     }
 
 
-
-
-    public static void setMinimumSpentTime(String parameter) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void showCurrentParameter(String group){
         System.out.println();
-        System.out.print("Input Minimum Spent Time : ");
-        System.out.println();
-        int time=Integer.parseInt(br.readLine());
-        switch (parameter){
-            case "GENERAL":
-                Parameters.setGeneralMinimumSpentTime(time);
-                break;
-            case "VIP":
-                Parameters.setVipMinimumSpentTime(time);
-                break;
-            case "VVIP":
-                Parameters.setVvipMinimumSpentTime(time);
-        }
-        whichParameter(parameter);
-    }
-    public static void setMinimumTotalPay(String parameter) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println();
-        System.out.print("Input Minimum Total Pay : ");
-        System.out.println();
-        int money=Integer.parseInt(br.readLine());
-        switch (parameter){
-            case "GENERAL":
-                Parameters.setGeneralMinimumTotalPay(money);
-                break;
-            case "VIP":
-                Parameters.setVipMinimumTotalPay(money);
-                break;
-            case "VVIP":
-                Parameters.setVvipMinimumTotalPay(money);
-        }
-        whichParameter(parameter);
-    }
-
-
-    public static String chooseParameterMenu() throws IOException{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.println();
-        System.out.println("Which group? Type ( General  ,  VIP  ,  VVIP ) ");
-        System.out.println("** Type 'end', if you want to exit! **");
-        System.out.println();
-
-        return br.readLine().toUpperCase();
-    }
-    public static void showParameter(String parameter){
-        System.out.println("Group Type General :  "+ parameter);
-        System.out.println();
-        System.out.println("Current Parameter :");
-        int minTime =0 ;
-        int minPay = 0;
-        switch (parameter){
-            case "GENERAL":
-                minTime=Parameters.getGeneralMinimumSpentTime();
-                minPay=Parameters.getGeneralMinimumTotalPay();
-                break;
-            case "VIP":
-                minTime=Parameters.getVipMinimumSpentTime();
-                minPay=Parameters.getVipMinimumTotalPay();
-                break;
-            case "VVIP":
-                minTime=Parameters.getVvipMinimumSpentTime();
-                minPay=Parameters.getVvipMinimumTotalPay();
-                break;
-            default:
-                break;
-        }
-        System.out.println("1. Minimum Time Spent : " + minTime);
-        System.out.println("2. Minimum Total Amount of Payment : " + minPay);
+        System.out.println("GroupType : " + group);
+        System.out.println("Parameter : "
+                + "Parameter{minimumSpentTime=" + Parameters.getParameter(group,1)
+                + ", minimumTotalPay=" +Parameters.getParameter(group,2));
         System.out.println();
     }
-
-
 }

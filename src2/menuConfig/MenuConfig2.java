@@ -1,6 +1,6 @@
-package src.menuConfig;
+package src2.menuConfig;
 
-import src.Customers;
+import src2.Customers2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 // TopMenu, ClassificationParameterMenu, CustomerDataMenu, SummaryMenu, Quit
 
-public class MenuConfig {
+public class MenuConfig2 {
 
     public static void topMenu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,7 +24,7 @@ public class MenuConfig {
         System.out.print("Choose One: ");
         int choice =Integer.parseInt(br.readLine());
         switch (choice) {
-            case 1: ClassificationParameter.classificationParameterMenu();break;
+            case 1: cpMenu();break;
             case 2: cdMenu();break;
             case 3: summaryMenu();break;
             case 4: quit();break;
@@ -43,7 +43,7 @@ public class MenuConfig {
         System.out.print("Choose One: ");
         int choice =Integer.parseInt(br.readLine());
         switch (choice) {
-            case 1: br.close(); break;
+            case 1: ClassificationParameter2.setParameterMenu(); br.close(); break;
             case 2: br.close(); break;
             case 3: br.close(); break;
             case 4: topMenu();break;
@@ -62,10 +62,10 @@ public class MenuConfig {
         System.out.println("==============================");
         System.out.print("Choose One: ");
         switch (Integer.parseInt(br.readLine())){
-            case 1: Customers.addCustomerDataMenu(); br.close(); break;
-            case 2: Customers.viewCustomerData(); cdMenu(); br.close(); break;
-            case 3: Customers.updateCustomerDataMenu(); br.close(); break;
-            case 4: Customers.deleteCustomersDataMenu(); br.close(); break;
+            case 1: Customers2.addCustomerDataMenu(); br.close(); break;
+            case 2: Customers2.viewCustomerData(); cdMenu(); br.close(); break;
+            case 3: Customers2.updateCustomerDataMenu(); br.close(); break;
+            case 4: Customers2.deleteCustomersDataMenu(); br.close(); break;
             case 5: topMenu(); br.close(); break;
         }
     }
@@ -87,7 +87,7 @@ public class MenuConfig {
             case 2: br.close(); break;
             case 3: br.close(); break;
             case 4: br.close(); break;
-            case 5: MenuConfig.topMenu(); br.close(); break;
+            case 5: MenuConfig2.topMenu(); br.close(); break;
         }
     }
 
