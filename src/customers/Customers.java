@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 public class Customers {
 
-    protected static Customer[] customerList = new Customer[0]; //Arrays of Customer
+    public static Customer[] customerList = new Customer[0]; //Arrays of Customer
 
     public static void addACustomer(Customer custom1) {
         Customer[] copied = new Customer[customerList.length + 1];
