@@ -1,6 +1,8 @@
 package src.menuConfig;
 
-import src.Customers;
+import src.customers.CustomerData;
+import src.customers.Customers;
+import src.parameters.ClassificationParameter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +27,7 @@ public class MenuConfig {
         int choice =Integer.parseInt(br.readLine());
         switch (choice) {
             case 1: ClassificationParameter.classificationParameterMenu();break;
-            case 2: cdMenu();break;
+            case 2: CustomerData.CustomerDataMenu();break;
             case 3: summaryMenu();break;
             case 4: quit();break;
         }
@@ -49,26 +51,26 @@ public class MenuConfig {
             case 4: topMenu();break;
         }
     }
-    public static void cdMenu() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.println();
-        System.out.println("==============================");
-        System.out.println(" 1. Add Customer Data");
-        System.out.println(" 2. View Customer Data");
-        System.out.println(" 3. Update Customer Data");
-        System.out.println(" 4. Delete Customer Data");
-        System.out.println(" 5. Back");
-        System.out.println("==============================");
-        System.out.print("Choose One: ");
-        switch (Integer.parseInt(br.readLine())){
-            case 1: Customers.addCustomerDataMenu(); br.close(); break;
-            case 2: Customers.viewCustomerData(); cdMenu(); br.close(); break;
-            case 3: Customers.updateCustomerDataMenu(); br.close(); break;
-            case 4: Customers.deleteCustomersDataMenu(); br.close(); break;
-            case 5: topMenu(); br.close(); break;
-        }
-    }
+//    public static void cdMenu() throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//
+//        System.out.println();
+//        System.out.println("==============================");
+//        System.out.println(" 1. Add Customer Data");
+//        System.out.println(" 2. View Customer Data");
+//        System.out.println(" 3. Update Customer Data");
+//        System.out.println(" 4. Delete Customer Data");
+//        System.out.println(" 5. Back");
+//        System.out.println("==============================");
+//        System.out.print("Choose One: ");
+//        switch (Integer.parseInt(br.readLine())){
+//            case 1: CustomerData.CustomerDataMenu(); br.close(); break;
+//            case 2: br.close(); break;
+//            case 3: br.close(); break;
+//            case 4: br.close(); break;
+//            case 5: topMenu(); br.close(); break;
+//        }
+//    }
 
     public static void summaryMenu() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

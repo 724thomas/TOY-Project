@@ -1,4 +1,4 @@
-package src;
+package src.customers;
 
 public class Customer {
 

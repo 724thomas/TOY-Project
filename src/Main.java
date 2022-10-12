@@ -1,6 +1,8 @@
 package src;
 
 
+import src.customers.Customer;
+import src.customers.Customers;
 import src.menuConfig.MenuConfig;
 
 import java.io.IOException;
