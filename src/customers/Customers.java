@@ -1,5 +1,6 @@
 package src.customers;
 
+import src.exception.InputRangeException;
 import src.menuConfig.MenuConfig;
 
 import java.io.BufferedReader;
@@ -20,7 +21,13 @@ public class Customers {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("\n====== Customer " + (count) + " Info. ======\n==============================\n 1. Customer Name\n 2. Customer ID\n 3. Customer Spend Time\n 4. Customer Total Pay\n 5. Back\n==============================\n");
         System.out.print("Choose One: ");
-        switch (Integer.parseInt(br.readLine())) {
+        int choice=0;
+        try{choice =Integer.parseInt(br.readLine());
+            if (choice<1 || choice>5){throw new InputRangeException();}
+        } catch (NumberFormatException var1){System.out.println("Invalid Type for Input. Please try again.");newCustomerData(customer,count);
+        } catch (InputRangeException var2){System.out.println("Invalid Input. Please try again.");newCustomerData(customer,count);
+        }
+        switch (choice) {
             case 1:
                 System.out.print("Input Customer's Name : ");
                 customer.setName(br.readLine());
@@ -54,7 +61,13 @@ public class Customers {
         System.out.println();
         System.out.println("\n====== Customer " + index + " Info. ======\n==============================\n 1. Customer Name\n 2. Customer ID\n 3. Customer Spend Time\n 4. Customer Total Pay\n 5. Back\n==============================");
         System.out.print("Choose One: ");
-        switch (Integer.parseInt(br.readLine())) {
+        int choice=0;
+        try{choice =Integer.parseInt(br.readLine());
+            if (choice<1 || choice>5){throw new InputRangeException();}
+        } catch (NumberFormatException var1){System.out.println("Invalid Type for Input. Please try again.");updateCustomerData(index);
+        } catch (InputRangeException var2){System.out.println("Invalid Input. Please try again.");updateCustomerData(index);
+        }
+        switch (choice) {
             case 1:
                 System.out.print("Input Customer's Name: ");
                 customerList[index].setName(br.readLine());

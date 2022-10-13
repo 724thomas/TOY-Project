@@ -2,6 +2,8 @@ package src.summary;
 
 import src.customers.Customer;
 import src.customers.Customers;
+import src.exception.InputEmptyException;
+import src.exception.InputRangeException;
 import src.menuConfig.MenuConfig;
 import src.parameters.Parameters;
 
@@ -13,13 +15,18 @@ import java.util.Comparator;
 
 public class Summary extends Customers {
 
-    private static String[] groups = new String[]{"OTHERS","GENERAL","VIP","VVIP"};
+    private static final String[] groups = new String[]{"OTHERS","GENERAL","VIP","VVIP"};
+    private static final String[] sortOptions = new String[]{"ASCENDING","DESCENDING","END"};
 
     public static void SummaryMenu() throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("\n==============================\n 1. Summary\n 2. Summary (Sorted By Name)\n 3. Summary (Sorted By Spent Time)\n 4. Summary (Sorted By Total Payment)\n 5. Back\n==============================\nChoose One: ");
-        int choice = Integer.parseInt(br.readLine());
+        int choice=0;
+        try{choice =Integer.parseInt(br.readLine());
+            if (choice<1 || choice>5){throw new InputRangeException();}
+        } catch (NumberFormatException var1){System.out.println("Invalid Type for Input. Please try again.");SummaryMenu();
+        } catch (InputRangeException var2){System.out.println("Invalid Input. Please try again.");SummaryMenu();
+        }
         switch (choice){
             case 1:
                 for (int i=0; i<groups.length; i++){showResult(createGroup(Customers.customerList,groups[i]),groups[i]);}
@@ -42,16 +49,27 @@ public class Summary extends Customers {
                 break;
         }
     }
-
-
+//*****************************************************************************************************************
     public static void chooseSortOrderMenu(String parameter) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("\n** Type 'end', if you want to exit! **\n");
         System.out.println("Which order? Type ( ASCENDING , DESCENDING ) : ");
-        String sortOrder = br.readLine().toUpperCase();
-        for (int i=0; i<groups.length; i++){showResult(sortGroup(createGroup(Customers.customerList,groups[i]),parameter,sortOrder),groups[i]);}
+        String sortOrder = "";
+        try{
+            sortOrder = br.readLine().toUpperCase();
+            if (sortOrder==null){throw new NullPointerException();}
+            if (sortOrder.equals("")){throw new InputEmptyException();}
+            for (int i = 0; i< sortOptions.length; i++){
+                if (sortOrder.equals(sortOptions[i])){}else{throw new InputRangeException();}}}
+        catch (NullPointerException var2) {System.out.println("Null Input. Please input something."); chooseSortOrderMenu(parameter);}
+        catch (InputEmptyException var3) {System.out.println("Empty Input. Please input something.");chooseSortOrderMenu(parameter);}
+        catch (InputRangeException var4) {System.out.println("Invalid Input. Please try again.");chooseSortOrderMenu(parameter);}
+        if (sortOrder.equals("END")){
+            SummaryMenu();
+        }else{
+            for (int i=0; i<groups.length; i++){showResult(sortGroup(createGroup(Customers.customerList,groups[i]),parameter,sortOrder),groups[i]);}}
     }
-
+    //*****************************************************************************************************************
     public static Customer[] sortGroup(Customer[] customers, String parameter, String sortOrder){
         //Arrays.sort(Customers.customerList, Comparator.comparing(Customer::getName).reversed().thenComparing(Customer::getTotalPay));
         if (sortOrder.equals("ASCENDING")) {
@@ -84,7 +102,6 @@ public class Summary extends Customers {
 
     // 기존 Customer[]에서 group의 parameter에 맞게 새로운 Customer[]을 리턴
     public static Customer[] createGroup(Customer[] customers, String group){
-        final String[] groups = new String[]{"OTHERS","GENERAL","VIP","VVIP"};
         Customer[] tempCustomers = new Customer[customers.length];
         int count=0;
 

@@ -34,19 +34,8 @@ public class Main {
         Customers.addACustomer(new Customer("iii","wert",70,70));
         Customers.addACustomer(new Customer("nnn","erty",80,80));
         Customers.addACustomer(new Customer("mmm","rtyu",90,90));
-//        MenuConfig.topMenu();
-        Summary.showResult(Customers.customerList,"OTHERS");
-        Summary.showResult(Customers.customerList,"VIP");
-        Summary.showResult(Customers.customerList, "GENERAL");
 
-        Customer[] generalGroup = Summary.createGroup(Customers.customerList,"OTHERS");
-        Customer[] generalGroup2=Summary.sortGroup(generalGroup,"SPENTTIME","DESCENDING");
-        Summary.showResult(generalGroup2,"OTHERS");
-
-        Summary.showResult(Summary.sortGroup(Summary.createGroup(Customers.customerList,"GENERAL"),"SPENTTIME","DESCENDING"),"GENERAL");
-        Summary.showResult(Summary.sortGroup(Summary.createGroup(Customers.customerList,"VIP"),"SPENTTIME","DESCENDING"),"VIP");
-        Summary.showResult(Summary.sortGroup(Summary.createGroup(Customers.customerList,"VVIP"),"SPENTTIME","DESCENDING"),"VVIP");
-        Summary.SummaryMenu();
+        MenuConfig.topMenu();
     }
 
 
