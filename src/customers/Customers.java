@@ -18,14 +18,7 @@ public class Customers {
     }
     public static Customer newCustomerData(Customer customer, int count) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("\n====== Customer " + (count) + " Info. ======\n");
-        System.out.println("==============================");
-        System.out.println(" 1. Customer Name");
-        System.out.println(" 2. Customer ID");
-        System.out.println(" 3. Customer Spend Time");
-        System.out.println(" 4. Customer Total Pay");
-        System.out.println(" 5. Back");
-        System.out.println("==============================");
+        System.out.println("\n====== Customer " + (count) + " Info. ======\n==============================\n 1. Customer Name\n 2. Customer ID\n 3. Customer Spend Time\n 4. Customer Total Pay\n 5. Back\n==============================\n");
         System.out.print("Choose One: ");
         switch (Integer.parseInt(br.readLine())) {
             case 1:
@@ -59,14 +52,7 @@ public class Customers {
     public static void updateCustomerData(int index) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println();
-        System.out.println("\n====== Customer " + index + " Info. ======\n");
-        System.out.println("==============================");
-        System.out.println(" 1. Customer Name");
-        System.out.println(" 2. Customer ID");
-        System.out.println(" 3. Customer Spend Time");
-        System.out.println(" 4. Customer Total Pay");
-        System.out.println(" 5. Back");
-        System.out.println("==============================");
+        System.out.println("\n====== Customer " + index + " Info. ======\n==============================\n 1. Customer Name\n 2. Customer ID\n 3. Customer Spend Time\n 4. Customer Total Pay\n 5. Back\n==============================");
         System.out.print("Choose One: ");
         switch (Integer.parseInt(br.readLine())) {
             case 1:

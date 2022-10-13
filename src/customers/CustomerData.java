@@ -10,11 +10,8 @@ public class CustomerData extends Customers{
 
     public static void CustomerDataMenu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("\n==============================");
-        System.out.println(" 1. Add Customer Data\n 2. View Customer Data\n" +
-                " 3. Update Customer Data\n 4. Delete Customer Data\n 5. Back");
-        System.out.println("==============================");
-        System.out.print("Choose One : ");
+        System.out.println("\n==============================\n 1. Add Customer Data\n 2. View Customer Data\n" + " 3. Update Customer Data\n 4. Delete Customer Data\n 5. Back\n==============================");
+        System.out.println("Choose One : ");
         int choice = Integer.parseInt(br.readLine());
         switch(choice){
             case 1:
@@ -39,8 +36,7 @@ public class CustomerData extends Customers{
     }
 
     public static void showCustomerList(String act){
-        System.out.println();
-        System.out.println("======= Customer Info. =======");
+        System.out.println("\n======= Customer Info. =======");
 
         for (int i = 0; i < customerList.length; i++) {
             System.out.println("No. " + (i + 1) + " => Customer{"

@@ -25,13 +25,6 @@ public class Customer {
 
 
 
-
-
-
-
-
-
-
     public static int getCount() {
         return count;
     }

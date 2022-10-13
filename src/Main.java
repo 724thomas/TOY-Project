@@ -5,9 +5,15 @@ import src.customers.Customer;
 import src.customers.Customers;
 import src.menuConfig.MenuConfig;
 import src.parameters.Parameters;
+import src.summary.Summary;
 
 import java.io.IOException;
 import java.lang.reflect.Parameter;
+import java.sql.SQLOutput;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -29,54 +35,19 @@ public class Main {
         Customers.addACustomer(new Customer("nnn","erty",80,80));
         Customers.addACustomer(new Customer("mmm","rtyu",90,90));
 //        MenuConfig.topMenu();
-        showResult(Customers.customerList,"OTHERS");
-        showResult(Customers.customerList,"VIP");
-        testing(Customers.customerList,"VIP");
+        Summary.showResult(Customers.customerList,"OTHERS");
+        Summary.showResult(Customers.customerList,"VIP");
+        Summary.showResult(Customers.customerList, "GENERAL");
+
+        Customer[] generalGroup = Summary.createGroup(Customers.customerList,"OTHERS");
+        Customer[] generalGroup2=Summary.sortGroup(generalGroup,"SPENTTIME","DESCENDING");
+        Summary.showResult(generalGroup2,"OTHERS");
+
+        Summary.showResult(Summary.sortGroup(Summary.createGroup(Customers.customerList,"GENERAL"),"SPENTTIME","DESCENDING"),"GENERAL");
+        Summary.showResult(Summary.sortGroup(Summary.createGroup(Customers.customerList,"VIP"),"SPENTTIME","DESCENDING"),"VIP");
+        Summary.showResult(Summary.sortGroup(Summary.createGroup(Customers.customerList,"VVIP"),"SPENTTIME","DESCENDING"),"VVIP");
+        Summary.SummaryMenu();
     }
 
-    public static void testing (Customer[] customers, String group){
-        showResult(createGroup(customers,group),group);
-    }
-    /////////**************************************************************************
-    public static Customer[] sortGroup(Customer[] customers, String parameter, int sortOrder){
-        Customer tempCustomer = new Customer();
-        for (int i=0; i<customers.length-1; i++){
-            if (customers[i].getName().compareTo(customers[i+1].getName())<0){
-                tempCustomer=customers[i];
-            }
-        }
-        return customers;
-    }
-    /////////**************************************************************************
-    // 기존 Customer[]에서 group의 parameter에 맞게 새로운 Customer[]을 리턴
-    public static Customer[] createGroup(Customer[] customers, String group){
-        Customer[] tempCustomers = new Customer[customers.length];
-        int count=0;
-        int minSpentTime=Parameters.getParameter(group,1);
-        int minTotalPay=Parameters.getParameter(group,2);;
-        for (int i=0; i<customers.length; i++){
-            if ((customers[i].getSpentTime()>=minSpentTime) && (customers[i].getTotalPay()>=minTotalPay)){
-                System.arraycopy(customers, i, tempCustomers, count++, 1);
-            }
-        }
-        Customer[] groupCustomers = new Customer[count];
-        System.arraycopy(tempCustomers, 0, groupCustomers, 0, count);
-        return groupCustomers;
-    }
-
-
-
-    //Customer[]을 보기좋게 출력.
-    public static void showResult(Customer[] customers, String group){
-        System.out.println("\n==============================");
-        System.out.println(group + " group : " + customers.length + " customer(s)");
-        if (group!="OTHERS"){
-            System.out.println("[Parameter] Parameter{minimumSpentTime="+ Parameters.getParameter(group,1) + ", minimumTotalPay=" + Parameters.getParameter(group,2) + "}");
-        }
-        System.out.println("------------------------------");
-        for (int j=0; j<customers.length; j++){
-            System.out.println("No. " + (j+1) + " => Customer{serialNo=" + customers[j].getSerialNo() + ", " + "name=" + customers[j].getName() + ", " + "userID=" + customers[j].getUserID() +", " + "spentTime=" + customers[j].getSpentTime() + ", " + "totalPay=" + customers[j].getTotalPay());
-        }
-    }
 
 }
