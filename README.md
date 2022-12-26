@@ -87,11 +87,13 @@
 
 - 똑같이 따를 필요는 없습니다. 본인의 클래스 설계로 개발하셔도 됩니다.
 - `customer`, `group`, `menu` 도메인으로 나누었으며 각 도메인의 클래스 설계도는 아래와 같습니다.
-customer
 
-group
-
-menu
+<br>customer<br>
+![image](https://user-images.githubusercontent.com/113500771/209510820-d822e643-424e-4702-9a69-1eb6ba0a49cd.png)
+<br>group<br>
+![image](https://user-images.githubusercontent.com/113500771/209510836-08393006-9b09-47f5-bd56-8b5b06c4fa40.png)
+<br>menu<br>
+![image](https://user-images.githubusercontent.com/113500771/209510851-2609c2b3-9944-41c2-aac6-83e7eda0db6d.png)
 
 <aside>
 📌 **프로젝트 실행화면**
